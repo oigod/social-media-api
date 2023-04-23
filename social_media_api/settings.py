@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "user",
+    "drf_spectacular",
     "social_profile",
-    "posts"
+    "posts",
 ]
 
 MIDDLEWARE = [
@@ -136,5 +137,19 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-    ]
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Social Media API",
+    "DESCRIPTION": "API for social media app",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "defaultModelsExpandDepth": 2,
+        "defaultModelExpandDepth": 2,
+        "defaultModelRendering": "model",
+    },
 }

@@ -28,7 +28,9 @@ class Migration(migrations.Migration):
                 (
                     "avatar",
                     models.ImageField(
-                        blank=True, null=True, upload_to="profiles/avatars/%Y/%m/%d/"
+                        blank=True,
+                        null=True,
+                        upload_to="profiles/avatars/%Y/%m/%d/",
                     ),
                 ),
                 ("first_name", models.CharField(max_length=63)),

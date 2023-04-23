@@ -11,7 +11,6 @@ urlpatterns = [
     path("login/", views.CreateTokenView.as_view(), name="login"),
     path("logout/", views.DeleteTokenView.as_view(), name="logout"),
     path("", include(router.urls)),
-
 ]
 
 app_name = "user"

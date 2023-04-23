@@ -15,19 +15,14 @@ class Post(models.Model):
     title = models.CharField(max_length=63)
     text = models.TextField()
     image = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to="posts/images/%Y/%m/%d/"
+        null=True, blank=True, upload_to="posts/images/%Y/%m/%d/"
     )
-    tags = models.ManyToManyField(
-        to=Tag,
-        related_name="posts"
-    )
+    tags = models.ManyToManyField(to=Tag, related_name="posts")
     author = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.SET_NULL,
         null=True,
-        related_name="posts"
+        related_name="posts",
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

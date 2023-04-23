@@ -6,14 +6,10 @@ User = get_user_model()
 
 class Profile(models.Model):
     user = models.OneToOneField(
-        to=User,
-        related_name="profile",
-        on_delete=models.CASCADE
+        to=User, related_name="profile", on_delete=models.CASCADE
     )
     avatar = models.ImageField(
-        blank=True,
-        null=True,
-        upload_to="profiles/avatars/%Y/%m/%d/"
+        blank=True, null=True, upload_to="profiles/avatars/%Y/%m/%d/"
     )
     first_name = models.CharField(max_length=63)
     last_name = models.CharField(max_length=63)
@@ -29,4 +25,3 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         return self.user_name
-

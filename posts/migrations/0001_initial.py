@@ -43,12 +43,19 @@ class Migration(migrations.Migration):
                 (
                     "image",
                     models.ImageField(
-                        blank=True, null=True, upload_to="posts/images/%Y/%m/%d/"
+                        blank=True,
+                        null=True,
+                        upload_to="posts/images/%Y/%m/%d/",
                     ),
                 ),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
-                ("tags", models.ManyToManyField(related_name="posts", to="posts.tag")),
+                (
+                    "tags",
+                    models.ManyToManyField(
+                        related_name="posts", to="posts.tag"
+                    ),
+                ),
             ],
         ),
     ]

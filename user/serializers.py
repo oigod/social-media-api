@@ -9,7 +9,10 @@ class FollowerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ("id", "email",)
+        fields = (
+            "id",
+            "email",
+        )
         read_only_fields = ("id",)
 
 
@@ -37,8 +40,16 @@ class UserSerializer(serializers.ModelSerializer):
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ("id", "email", "followers",)
-        read_only_fields = ("id", "email", "followers",)
+        fields = (
+            "id",
+            "email",
+            "followers",
+        )
+        read_only_fields = (
+            "id",
+            "email",
+            "followers",
+        )
 
 
 class AuthTokenSerializer(serializers.Serializer):
@@ -74,4 +85,3 @@ class AuthTokenSerializer(serializers.Serializer):
 
         attrs["user"] = user
         return attrs
-

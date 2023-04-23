@@ -8,8 +8,6 @@ router = routers.DefaultRouter()
 router.register("tags", views.TagViewSet, basename="tags")
 router.register("posts", views.PostViewSet, basename="posts")
 
-urlpatterns = [
-    path("", include(router.urls))
-]
+urlpatterns = [path("", include(router.urls))]
 
 app_name = "posts"

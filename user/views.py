@@ -14,7 +14,12 @@ from rest_framework.schemas import coreapi as coreapi_schema
 from rest_framework.views import APIView
 
 from social_profile.models import User
-from user.serializers import UserSerializer, AuthTokenSerializer, FollowerSerializer, UserListSerializer
+from user.serializers import (
+    UserSerializer,
+    AuthTokenSerializer,
+    FollowerSerializer,
+    UserListSerializer,
+)
 
 
 class CreateUserView(generics.CreateAPIView):
@@ -70,7 +75,9 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserListSerializer
 
-    @action(detail=True, methods=["POST"])
+    @action(
+        detail=True, methods=["POST"], permission_classes=[IsAuthenticated]
+    )
     def follow(self, request, pk=None):
         followee = self.get_object()
         follower = request.user
@@ -79,7 +86,9 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(follower)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=["DELETE"])
+    @action(
+        detail=True, methods=["DELETE"], permission_classes=[IsAuthenticated]
+    )
     def unfollow(self, request, pk=None):
         followee = self.get_object()
         follower = request.user
@@ -97,5 +106,8 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["GET"], url_path="followers")
     def followers(self, request):
         user = request.user
-        serializer = UserListSerializer(get_user_model().objects.filter(followers__id__in=[user.pk]), many=True)
+        serializer = UserListSerializer(
+            get_user_model().objects.filter(followers__id__in=[user.pk]),
+            many=True,
+        )
         return Response(serializer.data, status=status.HTTP_200_OK)

@@ -39,12 +39,12 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
     def with_perm(
-            self,
-            perm,
-            is_active=True,
-            include_superusers=True,
-            backend=None,
-            obj=None,
+        self,
+        perm,
+        is_active=True,
+        include_superusers=True,
+        backend=None,
+        obj=None,
     ):
         if backend is None:
             backends = auth._get_backends(return_tuples=True)

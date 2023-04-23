@@ -21,13 +21,12 @@ class TagSerializer(serializers.ModelSerializer):
 class TagShortDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Tag
-        fields = (
-            "name",
-        )
+        fields = ("name",)
 
 
 class PostSerializer(serializers.ModelSerializer):
     tags = TagShortDetailSerializer(many=True, read_only=True)
+
     class Meta:
         model = models.Post
         fields = (

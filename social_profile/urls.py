@@ -7,9 +7,6 @@ router = routers.DefaultRouter()
 
 router.register("profiles", views.ProfileViewSet, basename="profiles")
 
-urlpatterns = [
-    path("", include(router.urls))
-]
+urlpatterns = [path("", include(router.urls))]
 
 app_name = "social_profile"
-
