@@ -4,7 +4,6 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 from django.apps import apps
 
-
 from django.db import models
 
 
@@ -40,12 +39,12 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
     def with_perm(
-        self,
-        perm,
-        is_active=True,
-        include_superusers=True,
-        backend=None,
-        obj=None,
+            self,
+            perm,
+            is_active=True,
+            include_superusers=True,
+            backend=None,
+            obj=None,
     ):
         if backend is None:
             backends = auth._get_backends(return_tuples=True)
@@ -81,3 +80,9 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    followers = models.ManyToManyField(
+        "self",
+        related_name="followed_by",
+        symmetrical=False,
+    )

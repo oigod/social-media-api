@@ -3,10 +3,22 @@ from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
 
 
-class UserSerializer(serializers.ModelSerializer):
+class FollowerSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField(source="follower.id")
+    email = serializers.ReadOnlyField(source="follower.email")
+
     class Meta:
         model = get_user_model()
-        fields = ("id", "email", "password", "is_staff")
+        fields = ("id", "email",)
+        read_only_fields = ("id",)
+
+
+class UserSerializer(serializers.ModelSerializer):
+    followers = FollowerSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ("id", "email", "password", "is_staff", "followers")
         read_only_fields = ("id", "is_staff")
         extra_kwargs = {"password": {"write_only": True, "min_length": 5}}
 
@@ -20,6 +32,13 @@ class UserSerializer(serializers.ModelSerializer):
             user.set_password(password)
             user.save()
         return user
+
+
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ("id", "email", "followers",)
+        read_only_fields = ("id", "email", "followers",)
 
 
 class AuthTokenSerializer(serializers.Serializer):
@@ -55,3 +74,4 @@ class AuthTokenSerializer(serializers.Serializer):
 
         attrs["user"] = user
         return attrs
+
